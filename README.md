@@ -8,3 +8,9 @@ A simple and privacy-friendly web application to detect phishing URLs using a ma
 - Eye-catching, clean frontend design.
 - Uses a **Random Forest ML model** with URL-based features.
 
+## python main.py
+This will automatically create the following files after training:
+
+phishing_model.pkl (trained Random Forest model)
+
+scaler.pkl (feature scaler)
