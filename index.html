@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phishing URL Detector</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #f9fafb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: rgba(255,255,255,0.05);
+      padding: 2rem 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 400px;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #f9fafb;
+    }
+    p {
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      color: #d1d5db;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      outline: none;
+    }
+    button {
+      background: linear-gradient(90deg,#2563eb,#3b82f6);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+      width: 100%;
+    }
+    button:hover {
+      background: linear-gradient(90deg,#1d4ed8,#2563eb);
+    }
+    .result {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-direction: column;
+    }
+    .badge {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: white;
+      text-transform: uppercase;
+    }
+    .badge-error {
+      background: gray;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Phishing URL Detector</h1>
+    <p>Paste a URL below — quick, simple and privacy-friendly.</p>
+    <form method="POST">
+      <input type="text" name="url" placeholder="e.g. paypal.com/login" required />
+      <button type="submit">Check</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+      {% if result.code == 'bad' %}
+        <div class="badge" style="background: linear-gradient(90deg,#ef4444,#fb7185)">Phishing</div>
+      {% elif result.code == 'good' %}
+        <div class="badge" style="background: linear-gradient(90deg,#10b981,#34d399)">Good</div>
+      {% elif result.code == 'error' %}
+        <div class="badge badge-error">Error</div>
+      {% endif %}
+      <div style="font-weight:600;">{{ result.label }}</div>
+      <div style="font-size:0.8rem; color:#9ca3af;">{{ url }}</div>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
